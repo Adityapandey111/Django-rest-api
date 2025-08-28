@@ -14,6 +14,7 @@ from rest_framework import mixins, generics, viewsets
 
 from blogs.models import Blog, Comment
 from blogs.serializers import SerializerBlog, SerializerComment
+from employees.filters import EmployeeFilter
 # Create your views here.
 
 @api_view(['GET','POST'])
@@ -145,6 +146,8 @@ class EmployeesDetails(generics.RetrieveAPIView, generics.UpdateAPIView, generic
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset=Employee.objects.all()
     serializer_class=SerializerEmployee
+    # filterset_fields=['designation']
+    filterset_class=EmployeeFilter
 
 
 class BlogsView(generics.ListAPIView, generics.CreateAPIView):
