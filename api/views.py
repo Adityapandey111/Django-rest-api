@@ -11,6 +11,9 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import mixins, generics, viewsets
+
+from blogs.models import Blog, Comment
+from blogs.serializers import SerializerBlog, SerializerComment
 # Create your views here.
 
 @api_view(['GET','POST'])
@@ -142,3 +145,22 @@ class EmployeesDetails(generics.RetrieveAPIView, generics.UpdateAPIView, generic
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset=Employee.objects.all()
     serializer_class=SerializerEmployee
+
+
+class BlogsView(generics.ListAPIView, generics.CreateAPIView):
+    queryset=Blog.objects.all()
+    serializer_class=SerializerBlog
+
+class BlogsDetails(generics.RetrieveAPIView, generics.UpdateAPIView, generics.DestroyAPIView):
+    queryset=Blog.objects.all()
+    serializer_class=SerializerBlog
+    look_up_fields='pk'
+
+class CommentView(generics.ListAPIView, generics.CreateAPIView):
+    queryset=Comment.objects.all()
+    serializer_class=SerializerComment
+
+class CommentsDetails(generics.RetrieveAPIView, generics.UpdateAPIView, generics.DestroyAPIView):
+    queryset=Comment.objects.all()
+    serializer_class=SerializerComment
+    look_up_fields='pk'
